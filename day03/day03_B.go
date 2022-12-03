@@ -25,9 +25,9 @@ func rucksack() int {
             if group[0][i] == group[1][j] && group[0][i] == group[2][k] && group[1][j] == group[2][k] {
               ascii_val := int(group[0][i])
               if ascii_val > 96 {
-                point += int(group[0][i]) - 96
+                point += ascii_val - 96
               } else {
-                point += int(group[0][i]) - 38
+                point += ascii_val - 38
               }
               break Loop
             }
