@@ -18,27 +18,20 @@ func rucksack() int {
     group[count] = text
     count++
     if count == 3 {
-      found := false
+    Loop:
       for i := 0; i < len(group[0]); i++ {
         for j := 0; j < len(group[1]); j++ {
           for k := 0; k < len(group[2]); k++ {
             if group[0][i] == group[1][j] && group[0][i] == group[2][k] && group[1][j] == group[2][k] {
-              found = true
               ascii_val := int(group[0][i])
               if ascii_val > 96 {
                 point += int(group[0][i]) - 96
               } else {
                 point += int(group[0][i]) - 38
               }
-              break
+              break Loop
             }
           }
-          if found {
-            break
-          }
-        }
-        if found {
-          break
         }
       }
       count = 0
