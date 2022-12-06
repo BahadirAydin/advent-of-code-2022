@@ -13,13 +13,13 @@ func countDiff() int {
   scanner.Scan()
   text := scanner.Text()
   const n = 4
-  var arr [n - 1]int32
+  start := 0
   diff := 0
 Loop:
-  for k, v := range text {
-    for i := 0; i < diff; i++ {
-      if arr[i] == v {
-        arr[0] = v
+  for k := range text {
+    for i := start; i < start+diff; i++ {
+      if text[i] == text[k] {
+        start = k
         diff = 1
         continue Loop
       }
@@ -27,7 +27,6 @@ Loop:
     if diff == n-1 {
       return k
     }
-    arr[diff] = v
     diff++
   }
   return 0
