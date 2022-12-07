@@ -27,7 +27,7 @@ func cd(homeDir *Dir, currentDir *Dir, path string) *Dir {
   } else if path == ".." {
     return currentDir.upperDir
   }
-  for k, v := range (*currentDir).dirs {
+  for k, v := range currentDir.dirs {
     if v.name == path {
       return &(currentDir.dirs[k])
     }
@@ -41,7 +41,7 @@ func cd(homeDir *Dir, currentDir *Dir, path string) *Dir {
 func fillDir(currentDir *Dir, str string) {
   f := strings.Fields(str)
   if f[0] == "dir" {
-    (*currentDir).dirs = append(currentDir.dirs, Dir{
+    currentDir.dirs = append(currentDir.dirs, Dir{
       name:     f[1],
       files:    []File{},
       dirs:     []Dir{},
@@ -49,7 +49,7 @@ func fillDir(currentDir *Dir, str string) {
     })
   } else {
     fileSize, _ := strconv.Atoi(f[0])
-    (*currentDir).files = append(currentDir.files, File{size: fileSize, name: f[1]})
+    currentDir.files = append(currentDir.files, File{size: fileSize, name: f[1]})
   }
 }
 func findDirSize(dir Dir, list *[]int) (size int) {
@@ -60,7 +60,7 @@ func findDirSize(dir Dir, list *[]int) (size int) {
     size += v.size
   }
   if size <= 100000 {
-    (*list) = append((*list), size)
+    (*list) = append(*list, size)
   }
   return
 }
