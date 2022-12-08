@@ -27,36 +27,32 @@ func countScore(arr [n][n]int, row int, col int) int {
   cell := arr[row][col]
   scoreTop := 0
   for i := row + 1; i < n; i++ {
+    scoreTop++
     if arr[i][col] >= cell {
-      scoreTop++
       break
     }
-    scoreTop++
   }
   scoreBottom := 0
   for i := row - 1; i >= 0; i-- {
+    scoreBottom++
     if arr[i][col] >= cell {
-      scoreBottom++
       break
     }
-    scoreBottom++
   }
   scoreRight := 0
   for i := col + 1; i < n; i++ {
+    scoreRight++
     if arr[row][i] >= cell {
-      scoreRight++
       break
     }
-    scoreRight++
   }
 
   scoreLeft := 0
   for i := col - 1; i >= 0; i-- {
+    scoreLeft++
     if arr[row][i] >= cell {
-      scoreLeft++
       break
     }
-    scoreLeft++
   }
   return scoreBottom * scoreLeft * scoreRight * scoreTop
 }
