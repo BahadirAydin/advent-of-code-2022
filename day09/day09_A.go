@@ -18,16 +18,18 @@ type Point struct {
 // larger than sqrt(2) which is what happens when they're diagonal
 // we can also say that this is a condition to "touch"
 // the position DOES NOT change.
-// and when the position changes (len > sqrt(2)) it is just the head's old position.
+// and when the position changes (len > sqrt(2)) it is just the head's old position
+
+// IMPORTANT: There is a more sophisticated solution in part B which solves all ropes with -> length > 1.
 
 // Finds the change in tails position.
 func findTailPos(oldHead, head, tail Point) (int, int) {
-  hx, hy, tx, ty := head.x, head.y, tail.x, tail.y
+  hx, hy, tx, ty, ox, oy := head.x, head.y, tail.x, tail.y, oldHead.x, oldHead.y
   len := (hx-tx)*(hx-tx) + (hy-ty)*(hy-ty)
   if len <= 2 {
     return tx, ty
   }
-  return oldHead.x, oldHead.y
+  return ox, oy
 }
 
 func day9() {
