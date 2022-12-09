@@ -15,7 +15,7 @@ type Point struct {
 // I have first implemented BUNCH OF if else statements keeping track of each
 // possible move and state which was a literal pain.
 // then I realized unless the absolute length between two points is
-// larger than sqrt(2) which is what happens when they're directional
+// larger than sqrt(2) which is what happens when they're diagonal
 // we can also say that this is a condition to "touch"
 // the position DOES NOT change.
 // and when the position changes (len > sqrt(2)) it is just the head's old position.
