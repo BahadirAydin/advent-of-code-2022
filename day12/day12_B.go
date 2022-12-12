@@ -37,17 +37,7 @@ func readData() ([row][col]int32, []int, []int, int, int) {
   }
   return arr, starty, startx, endy, endx
 }
-func allPaths() int {
-  data, starty, startx, endy, endx := readData()
-  min := math.MaxInt32
-  for k := range starty {
-    v := int(shortestPath(data, starty[k], startx[k], endy, endx))
-    if v < min {
-      min = v
-    }
-  }
-  return min
-}
+
 func shortestPath(data [row][col]int32, starty, startx, endy, endx int) int32 {
   var distances [row][col]int32
   var visited [row][col]bool
@@ -94,6 +84,18 @@ func shortestPath(data [row][col]int32, starty, startx, endy, endx int) int32 {
     }
   }
   return distances[y][x]
+}
+
+func allPaths() int {
+  data, starty, startx, endy, endx := readData()
+  min := math.MaxInt32
+  for k := range starty {
+    v := int(shortestPath(data, starty[k], startx[k], endy, endx))
+    if v < min {
+      min = v
+    }
+  }
+  return min
 }
 func main() {
   fmt.Println(allPaths())
