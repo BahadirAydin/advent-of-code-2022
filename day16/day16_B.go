@@ -157,6 +157,9 @@ func dfs(valves []Valve, matrix [][]int, opened []int, index1, index2, totalPres
       }
     }
   }
+  if max == 0 {
+    return totalPressure
+  }
   _, ok1 := (*table)[Info{index1, index2, minute1, minute2}]
   _, ok2 := (*table)[Info{index2, index1, minute2, minute1}]
   if ok1 {
