@@ -114,11 +114,9 @@ func day16() int {
 }
 
 func memorized(table *map[Info]int, index1, index2, minute1, minute2 int) int {
-  val1, ok1 := (*table)[Info{index1, index2, minute1, minute2}]
-  val2, ok2 := (*table)[Info{index2, index1, minute2, minute1}]
-  if ok1 {
+  if val1, ok1 := (*table)[Info{index1, index2, minute1, minute2}]; ok1 {
     return val1
-  } else if ok2 {
+  } else if val2, ok2 := (*table)[Info{index2, index1, minute2, minute1}]; ok2 {
     return val2
   }
   return -1
@@ -134,7 +132,6 @@ func dfs(valves []Valve, matrix [][]int, opened []int, index1, index2, totalPres
   row2 := matrix[index2]
   max := 0
   res := 0
-
   for i := 0; i < len(row1); i++ {
     for j := 0; j < len(row2); j++ {
       if i == j {
@@ -160,14 +157,10 @@ func dfs(valves []Valve, matrix [][]int, opened []int, index1, index2, totalPres
   if max == 0 {
     return totalPressure
   }
-  _, ok1 := (*table)[Info{index1, index2, minute1, minute2}]
-  _, ok2 := (*table)[Info{index2, index1, minute2, minute1}]
-  if ok1 {
+  if _, ok := (*table)[Info{index1, index2, minute1, minute2}]; ok {
     (*table)[Info{index1, index2, minute1, minute2}] = max
-  } else if ok2 {
-    (*table)[Info{index2, index1, minute2, minute1}] = max
   } else {
-    (*table)[Info{index1, index2, minute1, minute2}] = max
+    (*table)[Info{index2, index1, minute2, minute1}] = max
   }
   return max
 }
