@@ -145,23 +145,17 @@ func dfs(valves []Valve, matrix [][]int, opened []int, index1, index2, totalPres
       if row1[i] < minute1 && row2[j] < minute2 && !flag1 && !flag2 {
         addedPressure := (minute1-row1[i])*valves[i].flowRate + (minute2-row2[j])*valves[j].flowRate
         res = dfs(valves, matrix, opened, i, j, totalPressure+addedPressure, minute1-row1[i], minute2-row2[j], table)
+      } else if minute1 >= row1[i] && row2[j] < minute2 && !flag2 {
+        addedPressure := (minute2 - row2[j]) * valves[j].flowRate
+        res = dfs(valves, matrix, opened, index1, j, totalPressure+addedPressure, minute1, minute2-row2[j], table)
+      } else if minute2 >= row2[j] && row1[i] < minute1 && !flag1 {
+        addedPressure := (minute1 - row1[i]) * valves[i].flowRate
+        res = dfs(valves, matrix, opened, i, index2, totalPressure+addedPressure, minute1-row1[i], minute2, table)
       }
       if res > max {
         max = res
       }
     }
-  }
-  if max == 0 {
-    _, ok1 := (*table)[Info{index1, index2, minute1, minute2}]
-    _, ok2 := (*table)[Info{index2, index1, minute2, minute1}]
-    if ok1 {
-      (*table)[Info{index1, index2, minute1, minute2}] = totalPressure
-    } else if ok2 {
-      (*table)[Info{index2, index1, minute2, minute1}] = totalPressure
-    } else {
-      (*table)[Info{index1, index2, minute1, minute2}] = totalPressure
-    }
-    return totalPressure
   }
   _, ok1 := (*table)[Info{index1, index2, minute1, minute2}]
   _, ok2 := (*table)[Info{index2, index1, minute2, minute1}]
