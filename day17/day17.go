@@ -161,6 +161,7 @@ func day17(wind []int, n int) int64 {
 	offset := int64(0)
 	i := 0
 	for i < n {
+        fmt.Println(i)
 		for originalRock := range rocks {
 			if i == n {
 				break
