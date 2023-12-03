@@ -119,6 +119,19 @@ func max(arr [7]int64) int64 {
 	return max
 }
 
+func min(arr [7]int64) int64 {
+	min := arr[0]
+	for i := range arr {
+		if arr[i] < min {
+			min = arr[i]
+		}
+	}
+	if min == -1 {
+		return 0
+	}
+	return min
+}
+
 func isHit(chamber *Chamber, rock *Rock, point Point) bool {
 	if rock.bottommost == 0 && point.y == -1 || rock.leftmost == 0 && point.x == -1 || rock.rightmost == 6 && point.x == 1 {
 		return false
@@ -145,6 +158,7 @@ func resizeChamber(chamber *Chamber, newHeight int) {
 func day17(wind []int, n int) int64 {
 	windPos := 0
 	chamber := initChamber()
+	offset := int64(0)
 	i := 0
 	for i < n {
 		for originalRock := range rocks {
@@ -212,11 +226,19 @@ func day17(wind []int, n int) int64 {
 					chamber.highest[x] = y
 				}
 			}
-		}
-	}
+			// take out everything after min(chamber.highest)
 
+		}
+		min_ := min(chamber.highest)
+		chamber.arr = chamber.arr[min_:]
+		offset += min_
+		for i := range chamber.highest {
+			chamber.highest[i] -= min_
+		}
+
+	}
 	// adding 1 because of index starting at 0
-	return max(chamber.highest) + 1
+	return max(chamber.highest) + 1 + offset
 }
 
 func main() {
