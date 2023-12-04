@@ -133,8 +133,8 @@ func min(arr [7]int64) int64 {
 }
 
 func isHit(chamber *Chamber, rock *Rock, point Point) bool {
-	if rock.bottommost == 0 && point.y == -1 || rock.leftmost == 0 && point.x == -1 || rock.rightmost == 6 && point.x == 1 {
-		return false
+	if (rock.bottommost == 0 && point.y == -1) || (rock.leftmost == 0 && point.x == -1) || (rock.rightmost == 6 && point.x == 1) {
+		return true
 	}
 	for stone := range rock.stones {
 		if chamber.arr[rock.stones[stone].y+point.y][rock.stones[stone].x+point.x] {
@@ -179,24 +179,13 @@ func day17(wind []int, n int) int64 {
 			rock.bottommost = spawn_y
 			for {
 
-				if wind[windPos] == 1 {
-					// right
-					if rock.rightmost < 6 && !isHit(chamber, &rock, Point{1, 0}) {
-						rock.rightmost++
-						rock.leftmost++
-						for stone := range rock.stones {
-							rock.stones[stone].x++
-						}
+				currentWind := int64(wind[windPos])
+				if !isHit(chamber, &rock, Point{currentWind, 0}) {
+					for stone := range rock.stones {
+						rock.stones[stone].x += currentWind
 					}
-				} else if wind[windPos] == -1 {
-					// left
-					if rock.leftmost > 0 && !isHit(chamber, &rock, Point{-1, 0}) {
-						rock.leftmost--
-						rock.rightmost--
-						for stone := range rock.stones {
-							rock.stones[stone].x--
-						}
-					}
+					rock.leftmost += int(currentWind)
+					rock.rightmost += int(currentWind)
 				}
 
 				windPos = (windPos + 1) % len(wind)
