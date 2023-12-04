@@ -102,7 +102,7 @@ type Chamber struct {
 }
 
 func initChamber() *Chamber {
-	arr := make([][]bool, 1000)
+	arr := make([][]bool, 10)
 	for i := range arr {
 		arr[i] = make([]bool, 7)
 	}
